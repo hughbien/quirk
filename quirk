@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require File.expand_path('quirk', File.dirname(__FILE__))
+
+ARGV.options do |o|
+  begin
+    app = Quirk::App.new
+    action = nil
+    o.set_summary_indent('  ')
+    o.banner =    "Usage: #{File.basename($0)} [OPTION]"
+    o.define_head "Track good and bad habits (v#{Quirk::VERSION})"
+    o.on('-c', '--calendar habit', 'show calendar') { |h| action = [:calendar, h] }
+    o.on('-e', '--edit', 'edit habits') { action = [:edit] }
+    o.on('-l', '--list', 'list habits') { action = [:list] }
+    o.on('-m', '--mark habit', 'mark for today') { |h| action = [:mark, h] }
+    o.on('-s', '--streaks', 'list streaks') { action = [:streaks] }
+    o.on('-y', '--year year', 'set calendar year') { |y| app.year = y }
+    o.on('-h', '--help', 'show this help message') { puts o; exit }
+    o.parse!
+    action.nil? ? puts(o) : app.send(*action)
+  rescue RuntimeError => e
+    puts e.to_s
+  end
+end
