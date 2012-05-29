@@ -33,9 +33,9 @@ class QuirkHabitTest < MiniTest::Unit::TestCase
     habit.mark!(Date.new(2012, 1, 2))
     habit.mark!(Date.new(2012, 1, 3))
     assert_equal(:white, habit.color_on(Date.new(2012, 1, 1)))
-    assert_equal(:green, habit.color_on(Date.new(2012, 1, 2)))
+    assert_equal(:light_green, habit.color_on(Date.new(2012, 1, 2)))
     assert_equal(:white, habit.color_on(Date.new(2012, 1, 3)))
-    assert_equal(:red, habit.color_on(Date.new(2012, 1, 4)))
+    assert_equal(:light_red, habit.color_on(Date.new(2012, 1, 4)))
     assert_equal(:white, habit.color_on(Date.new(2012, 1, 5)))
   end
 
@@ -43,13 +43,13 @@ class QuirkHabitTest < MiniTest::Unit::TestCase
     quit = Quirk::Habit.parse('^quit-tv: sunday, monday, wednesday, thursday')
     quit.mark!(Date.new(2012, 1, 2))
     assert_equal(:white, quit.color_on(Date.new(2012, 1, 1)))
-    assert_equal(:red, quit.color_on(Date.new(2012, 1, 2)))
+    assert_equal(:light_red, quit.color_on(Date.new(2012, 1, 2)))
     assert_equal(:white, quit.color_on(Date.new(2012, 1, 3)))
-    assert_equal(:green, quit.color_on(Date.new(2012, 1, 4)))
-    assert_equal(:green, quit.color_on(Date.new(2012, 1, 5)))
+    assert_equal(:light_green, quit.color_on(Date.new(2012, 1, 4)))
+    assert_equal(:light_green, quit.color_on(Date.new(2012, 1, 5)))
 
     quit.mark_first!(Date.new(2012, 1, 1))
-    assert_equal(:green, quit.color_on(Date.new(2012, 1, 1)))
+    assert_equal(:light_green, quit.color_on(Date.new(2012, 1, 1)))
   end
 
   def test_streak
@@ -92,6 +92,21 @@ class QuirkCalendarTest < MiniTest::Unit::TestCase
     @cal.mark!('2012/01/01 ^smoking')
     @cal.mark!('2012/01/01 running, walk-dog')
     @cal.mark!('2012/01/02 running, walk-dog')
+  end
+
+  def test_parse
+    calendar = Quirk::Calendar.parse(
+      "; ignore comment line\n" +
+      "running: everyday\n" +
+      "^smoking: everyday\n\n" +
+      "; ignore comment line\n" +
+      "2012/01/01 ^smoking\n" +
+      "2012/01/01 running\n\n")
+
+    assert(calendar.has_habit?('running'))
+    assert(calendar.has_habit?('smoking'))
+    assert_equal(Date.new(2012, 1, 1), calendar.habits['running'].first_date)
+    assert_equal(Date.new(2012, 1, 1), calendar.habits['smoking'].first_date)
   end
 
   def test_mark

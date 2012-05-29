@@ -141,6 +141,7 @@ module Quirk
   
   class Calendar
     attr_writer :year
+    attr_reader :habits
 
     def initialize(habits)
       @habits = habits.reduce({}) {|hash,habit| hash[habit.id] = habit; hash}
@@ -227,7 +228,7 @@ module Quirk
       text.strip.each_line do |line|
         if line =~ /^\d\d\d\d\/\d\d?\/\d\d?\s+/
           marks << line
-        elsif line !~ /^\s*$/
+        elsif line !~ /^\s*$/ && line !~ /^\s*;.*$/
           habits << Habit.parse(line)
         end
       end

@@ -13,6 +13,7 @@ Then configure your habits in a plaintext file:
     % quirk -e
     mile-run: monday, wednesday, thursday
     walk-dog: everyday
+    ; comments start with semi-colons
     ^quit-tv: friday
 
 If a habit is prefixed with `^`, it means you're trying to break that habit.
@@ -74,6 +75,11 @@ Put this into your `site-functions` directory (wherever `$fpath` points to):
     % echo $fpath
     /usr/share/zsh/site-functions /usr/share/zsh/4.3.11/functions
     % sudo vim /usr/share/zsh/site-functions/_quirk
+
+TODO
+====
+
+* add error notification for day parsing
 
 License
 =======
