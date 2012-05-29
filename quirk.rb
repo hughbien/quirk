@@ -59,6 +59,7 @@ module Quirk
 
     def initialize(id, days, quitting)
       @id, @days, @quitting, @marks = id, days, quitting, []
+      raise "No days found for #{id}" if @days.empty?
     end
 
     def quitting?

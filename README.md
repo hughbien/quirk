@@ -76,11 +76,6 @@ Put this into your `site-functions` directory (wherever `$fpath` points to):
     /usr/share/zsh/site-functions /usr/share/zsh/4.3.11/functions
     % sudo vim /usr/share/zsh/site-functions/_quirk
 
-TODO
-====
-
-* add error notification for day parsing
-
 License
 =======
 

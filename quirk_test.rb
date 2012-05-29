@@ -109,6 +109,10 @@ class QuirkCalendarTest < MiniTest::Unit::TestCase
     assert_equal(Date.new(2012, 1, 1), calendar.habits['smoking'].first_date)
   end
 
+  def test_parse_day_error
+    assert_raises(RuntimeError) { Quirk::Calendar.parse('running: invalid') }
+  end
+
   def test_mark
     assert_equal([Date.new(2012,1,1), Date.new(2012,1,2)], @running.marks)
     assert_equal([Date.new(2012,1,1), Date.new(2012,1,2)], @walking.marks)
