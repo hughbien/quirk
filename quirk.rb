@@ -82,8 +82,8 @@ module Quirk
     def color_on(date)
       hit_color = quitting? ? :light_red : :light_green
       miss_color = quitting? ? :light_green : :light_red
-      last_date = quitting? ? (Quirk.today + 1) : Quirk.today
-      if @marks.empty? ||
+      last_date = Quirk.today
+      if first_date.nil? ||
          date < first_date ||
          date > last_date ||
          !days.include?(date.wday)
