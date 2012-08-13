@@ -96,7 +96,7 @@ module Quirk
     end
 
     def streak
-      return 0 if @marks.empty?
+      return 0 if first_date.nil?
 
       count = 0
       deltas = {:light_red => -1, :light_green => 1, :white => 0}

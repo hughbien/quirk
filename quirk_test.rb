@@ -136,6 +136,6 @@ class QuirkCalendarTest < MiniTest::Unit::TestCase
   end
 
   def test_streaks
-    assert_equal("-2 running\n 0 smoking\n 1 walk-dog", @cal.streaks)
+    assert_equal("-2 running\n 1 walk-dog\n 5 smoking", @cal.streaks)
   end
 end

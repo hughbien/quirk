@@ -16,11 +16,12 @@ Then configure your habits in a plaintext file:
     ; comments start with semi-colons
     ^quit-tv: friday
 
+By default, all this does is edit the `~/.quirk` file.  You can configure
+which file to use by setting the environment variable `QUIRKFILE`.
+
 If a habit is prefixed with `^`, it means you're trying to break that habit.
 In this case you're trying to quit TV on Fridays.
 
-By default, all this does is edit the `~/.quirk` file.  You can configure
-which file to use by setting the environment variable `QUIRKFILE`.
 
 Usage
 =====
@@ -79,5 +80,5 @@ Put this into your `site-functions` directory (wherever `$fpath` points to):
 License
 =======
 
-Copyright 2012 Hugh Bien - http://hughbien.com.
+Copyright Hugh Bien - http://hughbien.com.
 Released under BSD License, see LICENSE.md for more info.
