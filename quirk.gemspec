@@ -1,8 +1,6 @@
-require File.expand_path('quirk', File.dirname(__FILE__)) 
- 
 Gem::Specification.new do |s|
   s.name        = 'quirk'
-  s.version     = Quirk::VERSION
+  s.version     = '0.0.4'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Hugh Bien']
   s.email       = ['hugh@hughbien.com']

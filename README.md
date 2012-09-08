@@ -6,11 +6,11 @@ Quirk is a command line utility for tracking good and bad habits.
 Installation
 ============
 
-    % gem install quirk
+    $ gem install quirk
 
 Then configure your habits in a plaintext file:
 
-    % quirk -e
+    $ quirk -e
     mile-run: monday, wednesday, thursday
     walk-dog: everyday
     ; comments start with semi-colons
@@ -28,11 +28,11 @@ Usage
 
 When you've done something, mark it with:
 
-    % quirk -m mile-run
+    $ quirk -m mile-run
 
 To see a single habit (green days are good, red is bad):
 
-    % quirk -c mile-run
+    $ quirk -c mile-run
           Jan 2012
     Su Mo Tu We Th Fr Sa
      1  2  3  4  5  6  7
@@ -43,11 +43,11 @@ To see a single habit (green days are good, red is bad):
 
 Looking for a specific year?
 
-    % quirk mile-run -y 2011
+    $ quirk mile-run -y 2011
 
 See all of your current streaks:
 
-    % quirk -s
+    $ quirk -s
     17 mile-run
      3 walk-dog
     -3 quit-tv
@@ -73,9 +73,9 @@ Here's an example zsh completion function:
 
 Put this into your `site-functions` directory (wherever `$fpath` points to):
 
-    % echo $fpath
+    $ echo $fpath
     /usr/share/zsh/site-functions /usr/share/zsh/4.3.11/functions
-    % sudo vim /usr/share/zsh/site-functions/_quirk
+    $ vim /usr/share/zsh/site-functions/_quirk
 
 License
 =======
