@@ -46,7 +46,7 @@ Looking for a specific year?
 
 See all of your current streaks:
 
-    $ quirk -s
+    $ quirk
     17 mile-run
      3 walk-dog
     -3 quit-tv
