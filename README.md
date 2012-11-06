@@ -13,8 +13,7 @@ Then configure your habits in a plaintext file:
     $ quirk -e
     mile-run: monday, wednesday, thursday
     walk-dog: everyday
-    ; comments start with semi-colons
-    ^quit-tv: friday
+    ^quit-tv: friday ; comments start with semi-colons
 
 By default, all this does is edit the `~/.quirk` file.  You can configure
 which file to use by setting the environment variable `QUIRKFILE`.

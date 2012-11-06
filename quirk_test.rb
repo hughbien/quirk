@@ -110,10 +110,10 @@ class QuirkCalendarTest < MiniTest::Unit::TestCase
   def test_parse
     calendar = Quirk::Calendar.parse(
       "; ignore comment line\n" +
-      "running: everyday\n" +
+      "running: everyday ; ignore comment\n" +
       "^smoking: everyday\n\n" +
       "; ignore comment line\n" +
-      "2012/01/01 ^smoking\n" +
+      "2012/01/01 ^smoking ; ignore comment\n" +
       "2012/01/01 running\n\n")
 
     assert(calendar.has_habit?('running'))

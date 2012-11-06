@@ -227,9 +227,10 @@ module Quirk
     def self.parse(text)
       marks, habits = [], []
       text.strip.each_line do |line|
+        line = line.split(';')[0].to_s.strip # remove comments
         if line =~ /^\d\d\d\d\/\d\d?\/\d\d?\s+/
           marks << line
-        elsif line !~ /^\s*$/ && line !~ /^\s*;.*$/
+        elsif line !~ /^\s*$/
           habits << Habit.parse(line)
         end
       end
