@@ -82,6 +82,22 @@ class QuirkHabitTest < MiniTest::Unit::TestCase
     assert_equal(:white, habit.color_on(Date.new(2012, 1, 5)))
   end
 
+  def test_color_on_future_last_date
+    habit = Quirk::Habit.parse('running: everyday')
+    habit.mark!(Date.new(2012, 1, 2))
+    habit.mark!(Date.new(2012, 1, 4))
+    habit.mark_last!(Date.new(2012, 1, 29))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 1)))
+    assert_equal(:light_green, habit.color_on(Date.new(2012, 1, 2)))
+    assert_equal(:light_red, habit.color_on(Date.new(2012, 1, 3)))
+    assert_equal(:light_green, habit.color_on(Date.new(2012, 1, 4)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 5)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 6)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 28)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 29)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 30)))
+  end
+
   def test_color_on_quit_last_date
     quit = Quirk::Habit.parse('^quit-tv: everyday')
     quit.mark_first!(Date.new(2012, 1, 1))
