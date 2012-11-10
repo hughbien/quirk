@@ -65,6 +65,35 @@ class QuirkHabitTest < MiniTest::Unit::TestCase
     assert_equal(:white, quit.color_on(Date.new(2012, 1, 6)))
   end
 
+  def test_color_on_last_date
+    habit = Quirk::Habit.parse('running: everyday')
+    habit.mark!(Date.new(2012, 1, 2))
+    habit.mark!(Date.new(2012, 1, 3))
+    habit.mark_last!(Date.new(2012, 1, 4))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 1)))
+    assert_equal(:light_green, habit.color_on(Date.new(2012, 1, 2)))
+    assert_equal(:light_green, habit.color_on(Date.new(2012, 1, 3)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 4)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 5)))
+
+    habit.mark!(Date.new(2012, 1, 4))
+    habit.mark!(Date.new(2012, 1, 5))
+    assert_equal(:light_green, habit.color_on(Date.new(2012, 1, 4)))
+    assert_equal(:white, habit.color_on(Date.new(2012, 1, 5)))
+  end
+
+  def test_color_on_quit_last_date
+    quit = Quirk::Habit.parse('^quit-tv: everyday')
+    quit.mark_first!(Date.new(2012, 1, 1))
+    quit.mark_last!(Date.new(2012, 1, 4))
+    quit.mark!(Date.new(2012, 1, 5))
+    assert_equal(:light_green, quit.color_on(Date.new(2012, 1, 1)))
+    assert_equal(:light_green, quit.color_on(Date.new(2012, 1, 2)))
+    assert_equal(:light_green, quit.color_on(Date.new(2012, 1, 3)))
+    assert_equal(:light_green, quit.color_on(Date.new(2012, 1, 4)))
+    assert_equal(:white, quit.color_on(Date.new(2012, 1, 5)))
+  end
+
   def test_streak
     missing = Quirk::Habit.parse('running: everyday')
     assert_equal(0, missing.streak)
@@ -103,6 +132,7 @@ class QuirkCalendarTest < MiniTest::Unit::TestCase
     @smoking = Quirk::Habit.parse('^smoking: everyday')
     @cal = Quirk::Calendar.new([@running, @walking, @smoking])
     @cal.mark!('2012/01/01 ^smoking')
+    @cal.mark!('2012/01/04 $smoking')
     @cal.mark!('2012/01/01 running, walk-dog')
     @cal.mark!('2012/01/02 running, walk-dog')
   end
@@ -136,6 +166,6 @@ class QuirkCalendarTest < MiniTest::Unit::TestCase
   end
 
   def test_streaks
-    assert_equal("-2 running\n 1 walk-dog\n 5 smoking", @cal.streaks)
+    assert_equal("-2 running\n 1 walk-dog\n 4 smoking", @cal.streaks)
   end
 end

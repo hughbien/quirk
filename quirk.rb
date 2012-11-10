@@ -75,6 +75,10 @@ module Quirk
       @first_date = date
     end
 
+    def mark_last!(date)
+      @last_date = date
+    end
+
     def first_date
       @first_date || @marks.first
     end
@@ -82,7 +86,7 @@ module Quirk
     def color_on(date)
       hit_color = quitting? ? :light_red : :light_green
       miss_color = quitting? ? :light_green : :light_red
-      last_date = Quirk.today
+      last_date = @last_date || Quirk.today
       if first_date.nil? ||
          date < first_date ||
          date > last_date ||
@@ -208,6 +212,10 @@ module Quirk
           original = original.sub(/^\^\s*/, '')
           habit = @habits[original] if has_habit?(original)
           habit.mark_first!(date)
+        elsif original =~ /^\$\s*/
+          original = original.sub(/^\$\s*/, '')
+          habit = @habits[original] if has_habit?(original)
+          habit.mark_last!(date)
         elsif has_habit?(original)
           @habits[original].mark!(date)
         end

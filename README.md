@@ -62,6 +62,17 @@ The first line means you walked the dog on `1/1`.  The second line means you
 started the habit of quitting TV.  This is especailly handy for starting
 quitting habits on a green day.
 
+You can specify the last day for a habit using `$`:
+
+    2012/01/01 ^quit-tv
+    2012/01/30 $quit-tv
+    2012/01/15 quit-tv
+    2012/01/16 quit-tv
+
+The first line means on `1/1`, I'm going to start quitting TV.  The second line
+means I'll stop the habit on `1/30`, it's just a temporary goal for 1 month.
+The last two lines means I watched TV on `1/15` and `1/16` (two red days).
+
 Zsh Tab Completion
 ==================
 
