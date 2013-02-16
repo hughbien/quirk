@@ -2,7 +2,7 @@ require 'date'
 require 'colorize'
 
 module Quirk
-  VERSION = '0.0.4'
+  VERSION = '0.0.5'
   QUIRKFILE = ENV['QUIRKFILE'] || "#{ENV['HOME']}/.quirk"
   EDITOR = ENV['EDITOR'] || 'vi'
 
