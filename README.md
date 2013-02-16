@@ -101,7 +101,7 @@ by a newline.  Use `xargs` and/or `tr` to format as you see fit:
 
     $ quirk -t
     mile-run
-    wlak-dog
+    walk-dog
     $ quirk -t | xargs
     mile-run walk-dog
     $ quirk -t | xargs | tr " " ,
