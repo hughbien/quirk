@@ -39,6 +39,10 @@ module Quirk
       end
     end
 
+    def today
+      puts cal.today if cal.today !~ /^\s*$/
+    end
+
     def streaks
       puts cal.streaks
     end
@@ -81,6 +85,11 @@ module Quirk
 
     def first_date
       @first_date || @marks.first
+    end
+
+    def pending?(date)
+      weekday = date.strftime("%w").to_i
+      !quitting? && days.include?(weekday) && color_on(date) != :light_green
     end
 
     def color_on(date)
@@ -220,6 +229,14 @@ module Quirk
           @habits[original].mark!(date)
         end
       end
+    end
+
+    def today
+      @habits.values.
+        select {|h| h.pending?(Quirk.today)}.
+        map(&:id).
+        sort.
+        join("\n")
     end
 
     def streaks

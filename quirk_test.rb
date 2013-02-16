@@ -28,6 +28,19 @@ class QuirkHabitTest < MiniTest::Unit::TestCase
     assert(habit3.quitting?)
   end
 
+  def test_pending
+    habit = Quirk::Habit.parse('running: monday')
+    refute(habit.pending?(Date.new(2012, 1, 1)))
+    assert(habit.pending?(Date.new(2012, 1, 2)))
+    habit.mark!(Date.new(2012, 1, 2))
+    refute(habit.pending?(Date.new(2012, 1, 2)))
+
+    habit2 = Quirk::Habit.parse('^quit-tv: everyday')
+    refute(habit.pending?(Date.new(2012, 1, 1)))
+    habit.mark!(Date.new(2012, 1, 1))
+    refute(habit.pending?(Date.new(2012, 1, 1)))
+  end
+
   def test_color_on
     habit = Quirk::Habit.parse('running: sunday, monday, wednesday, thursday')
     habit.mark!(Date.new(2012, 1, 2))
@@ -179,6 +192,12 @@ class QuirkCalendarTest < MiniTest::Unit::TestCase
 
   def test_mark_first
     assert_equal(Date.new(2012, 1, 1), @smoking.first_date)
+  end
+
+  def test_today
+    assert_equal("running", @cal.today)
+    @cal.mark!('2012/01/05 running')
+    assert_equal("", @cal.today)
   end
 
   def test_streaks

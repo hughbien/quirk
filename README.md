@@ -51,6 +51,12 @@ See all of your current streaks:
      3 walk-dog
     -3 quit-tv
 
+See which habits are pending for today:
+
+    $ quirk -t
+    mile-run
+    walk-dog
+
 Habits are stored in plaintext in `~/.quirk`.  You can use `quirk -e` to
 add/remove entries.  Note that habits start on the day of the first mark
 by default.  You can also specify the first day using `^`:
@@ -59,7 +65,7 @@ by default.  You can also specify the first day using `^`:
     2012/01/01 ^quit-tv
 
 The first line means you walked the dog on `1/1`.  The second line means you
-started the habit of quitting TV.  This is especailly handy for starting
+started the habit of quitting TV.  This is especially handy for starting
 quitting habits on a green day.
 
 You can specify the last day for a habit using `$`:
@@ -86,6 +92,25 @@ Put this into your `site-functions` directory (wherever `$fpath` points to):
     $ echo $fpath
     /usr/share/zsh/site-functions /usr/share/zsh/4.3.11/functions
     $ vim /usr/share/zsh/site-functions/_quirk
+
+Tmux and Other Notifications Integration
+========================================
+
+Use `quirk -t` to see which habits are pending for today.  Habits are separated
+by a newline.  Use `xargs` and/or `tr` to format as you see fit:
+
+    $ quirk -t
+    mile-run
+    wlak-dog
+    $ quirk -t | xargs
+    mile-run walk-dog
+    $ quirk -t | xargs | tr " " ,
+    mile-run,walk-dog
+
+This is useful for `tmux`'s status as a reminder of which habits are pending.
+Put this in your `.tmux.conf` file:
+
+    set -g status-right '#[fg=yellow]#(quirk -t | xargs | tr " " ,)'
 
 License
 =======
