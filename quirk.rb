@@ -32,10 +32,10 @@ module Quirk
     end
 
     def mark(habit_id)
+      contents = File.read(@quirkfile)
       File.open(@quirkfile, 'a') do |file|
-        if cal.has_habit?(habit_id)
-          file.puts("#{Quirk.today.strftime('%Y/%m/%d')} #{habit_id}")
-        end
+        line = "#{Quirk.today.strftime('%Y/%m/%d')} #{habit_id}"
+        file.puts(line) if cal.has_habit?(habit_id) && contents !~ /^#{line}$/
       end
     end
 
