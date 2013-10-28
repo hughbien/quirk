@@ -1,5 +1,5 @@
 require 'rubygems'
-require "#{File.dirname(__FILE__)}/quirk"
+require File.expand_path("#{File.dirname(__FILE__)}/../lib/quirk")
 require 'minitest/autorun'
 
 Quirk.today = Date.new(2012, 1, 5) # 1 Su, 2 Mo, 3 Tu, 4 We, 5 Th

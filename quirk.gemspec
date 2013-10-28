@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest'
   s.add_dependency 'colorize'
  
-  s.files        = Dir.glob('*.{rb,md}') + %w(quirk)
-  s.bindir       = '.'
+  s.files        = Dir.glob('*.md') + Dir.glob('bin/*') + Dir.glob('lib/*')
+  s.bindir       = 'bin'
   s.executables  = ['quirk']
 end

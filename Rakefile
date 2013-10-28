@@ -1,9 +1,9 @@
-require File.expand_path('quirk', File.dirname(__FILE__))
+require File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'quirk'))
 
 task :default => :test
 
 task :test do
-  ruby '*_test.rb'
+  ruby 'test/*_test.rb'
 end
 
 task :build do

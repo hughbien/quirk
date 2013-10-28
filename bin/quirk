@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'optparse'
-require File.expand_path('quirk', File.dirname(__FILE__))
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'quirk'))
 
 ARGV.options do |o|
   begin
