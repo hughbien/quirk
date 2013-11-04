@@ -1,16 +1,17 @@
 require 'rubygems'
 require File.expand_path("#{File.dirname(__FILE__)}/../lib/quirk")
+gem 'minitest'
 require 'minitest/autorun'
 
 Quirk.today = Date.new(2012, 1, 5) # 1 Su, 2 Mo, 3 Tu, 4 We, 5 Th
 
-class QuirkAppTest < MiniTest::Unit::TestCase
+class QuirkAppTest < Minitest::Test
   def setup
     @app = Quirk::App.new(File.join(File.dirname(__FILE__), 'quirkfile'))
   end
 end
 
-class QuirkHabitTest < MiniTest::Unit::TestCase
+class QuirkHabitTest < Minitest::Test
   def test_parse
     habit = Quirk::Habit.parse(' running:  monday , tuesday, wednesday')
     assert_equal('running', habit.id)
@@ -154,7 +155,7 @@ class QuirkHabitTest < MiniTest::Unit::TestCase
   end
 end
 
-class QuirkCalendarTest < MiniTest::Unit::TestCase
+class QuirkCalendarTest < Minitest::Test
   def setup
     @running = Quirk::Habit.parse('running: everyday')
     @walking = Quirk::Habit.parse('walk-dog: sunday, saturday')
