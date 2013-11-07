@@ -1,4 +1,4 @@
-Copyright (c) 2012, Hugh Bien
+Copyright (c) Hugh Bien
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
