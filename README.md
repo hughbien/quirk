@@ -41,24 +41,19 @@ See all of your current streaks:
     $ quirk
     17 mile-run
      3 walk-dog
-    -3 quit-tv
 
 Habits are stored in plaintext in `~/.quirk`.  You can use `quirk -e` to add/remove entries.  Habits
 start on the day of the first mark by default.
 
     2012/01/01 walk-dog
 
-The first line means you walked the dog on `1/1`.  You can specify the last day for a habit using
-the `$` prefix:
+The first line means you walked the dog on `1/1`.  You can specify the first/last day for a habit
+using the `^`/`$` prefixes:
 
+    2012/01/01 ^walk-dog
     2012/01/30 $walk-dog
 
-This means I'll stop the habit on `1/30`, it's just a temporary goal for 1 month.
-
-# TODO
-
-* remove quitting habits
-* remove ^ start habit days
+This means I'll start on `1/1` and end on `1/30`, it's just a temporary goal for 1 month.
 
 # License
 

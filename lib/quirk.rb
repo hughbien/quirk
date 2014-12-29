@@ -64,13 +64,9 @@ module Quirk
   class Habit
     attr_reader :id, :days, :marks
 
-    def initialize(id, days, quitting)
-      @id, @days, @quitting, @marks = id, days, quitting, []
+    def initialize(id, days)
+      @id, @days, @marks = id, days, []
       raise "No days found for #{id}" if @days.empty?
-    end
-
-    def quitting?
-      !!@quitting
     end
 
     def mark!(date)
@@ -92,12 +88,12 @@ module Quirk
 
     def pending?(date)
       weekday = date.strftime("%w").to_i
-      !quitting? && days.include?(weekday) && color_on(date) != :light_green
+      days.include?(weekday) && color_on(date) != :light_green
     end
 
     def color_on(date)
-      hit_color = quitting? ? :light_red : :light_green
-      miss_color = quitting? ? :light_green : :light_red
+      hit_color = :light_green
+      miss_color = :light_red
       last_date = [@last_date, Quirk.today].compact.min
       if first_date.nil? ||
          date < first_date ||
@@ -107,7 +103,7 @@ module Quirk
       elsif @marks.include?(date)
         hit_color
       else
-        date == last_date && !quitting? ? :white : miss_color
+        date == last_date ? :white : miss_color
       end
     end
 
@@ -135,10 +131,8 @@ module Quirk
       line.strip!
       line.gsub!(/\s+/, ' ')
 
-      quitting = line =~ /^\^/
-      line = line[1..-1] if quitting
       id, days = line.split(':', 2).map(&:strip)
-      self.new(id, parse_days(days), quitting)
+      self.new(id, parse_days(days))
     end
 
     def self.parse_days(text)
