@@ -29,9 +29,20 @@ module Quirk
 
     def mark(habit_id)
       contents = File.read(@quirkfile)
-      File.open(@quirkfile, 'a') do |file|
-        line = "#{Quirk.today.strftime('%Y/%m/%d')} #{habit_id}"
-        file.puts(line) if cal.has_habit?(habit_id) && contents !~ /^#{line}$/
+      return if !cal.has_habit?(habit_id)
+
+      date = Quirk.today.strftime('%Y/%m/%d')
+      match = contents.match(/^(#{date} .*)$/)
+      if match # already has date, add habit to line
+        old_line = match.captures[0]
+        ids = old_line.strip.split(/\s+/, 2)[1].split(',').map(&:strip)
+        ids << habit_id
+        ids = ids.sort.uniq
+        new_line = "#{date} #{ids.join(', ')}"
+        contents.sub!(old_line, new_line)
+        File.open(@quirkfile, 'w') { |f| f.print(contents) }
+      else
+        File.open(@quirkfile, 'a') { |f| f.puts("#{date} #{habit_id}") }
       end
     end
 
