@@ -151,6 +151,7 @@ module Quirk
 
     def initialize(habits)
       @habits = habits.reduce({}) {|hash,habit| hash[habit.id] = habit; hash}
+      @ids = habits.map(&:id)
     end
 
     def year
@@ -220,9 +221,9 @@ module Quirk
     end
 
     def streaks
-      pairs = @habits.values.map do |habit|
-        [habit.streak, habit.id]
-      end.sort_by(&:first)
+      pairs = @ids.map do |id|
+        [@habits[id].streak, id]
+      end
       len = pairs.map {|p| p.first.to_s.length}.max
       pairs.map do |count, id|
         "#{' ' * (len - count.to_s.length)}#{count} #{id}"

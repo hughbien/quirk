@@ -60,7 +60,6 @@ This means I'll stop the habit on `1/30`, it's just a temporary goal for 1 month
 * remove quitting habits
 * remove ^ start habit days
 * mark habit should re-use date entries if available
-* streaks action should respect definition order as secondary
 
 # License
 
