@@ -195,12 +195,6 @@ class QuirkCalendarTest < Minitest::Test
     assert_equal(Date.new(2012, 1, 1), @smoking.first_date)
   end
 
-  def test_today
-    assert_equal("running", @cal.today)
-    @cal.mark!('2012/01/05 running')
-    assert_equal("", @cal.today)
-  end
-
   def test_streaks
     assert_equal("-2 running\n 1 walk-dog\n 4 smoking", @cal.streaks)
   end

@@ -11,9 +11,7 @@ ARGV.options do |o|
     o.define_head "Track good and bad habits (v#{Quirk::VERSION})"
     o.on('-c', '--calendar habit', 'show calendar') { |h| action = [:calendar, h] }
     o.on('-e', '--edit', 'edit habits') { action = [:edit] }
-    o.on('-l', '--list', 'list habits') { action = [:list] }
     o.on('-m', '--mark habit', 'mark for today') { |h| action = [:mark, h] }
-    o.on('-t', '--today', 'unfinished habits for today') { action = [:today] }
     o.on('-y', '--year year', 'set calendar year') { |y| app.year = y }
     o.on('-h', '--help', 'show this help message') { puts o; exit }
     o.parse!

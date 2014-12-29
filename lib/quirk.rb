@@ -27,20 +27,12 @@ module Quirk
       `#{EDITOR} #{QUIRKFILE} < \`tty\` > \`tty\``
     end
 
-    def list
-      puts cal.list
-    end
-
     def mark(habit_id)
       contents = File.read(@quirkfile)
       File.open(@quirkfile, 'a') do |file|
         line = "#{Quirk.today.strftime('%Y/%m/%d')} #{habit_id}"
         file.puts(line) if cal.has_habit?(habit_id) && contents !~ /^#{line}$/
       end
-    end
-
-    def today
-      puts cal.today if cal.today !~ /^\s*$/
     end
 
     def streaks
@@ -209,10 +201,6 @@ module Quirk
       out
     end
 
-    def list
-      @habits.values.map(&:id).sort.join("\n")
-    end
-
     def mark!(line)
       date = Date.parse(line.strip.split(/\s+/)[0])
       originals = line.strip.split(/\s+/, 2)[1].split(',').map(&:strip)
@@ -229,14 +217,6 @@ module Quirk
           @habits[original].mark!(date)
         end
       end
-    end
-
-    def today
-      @habits.values.
-        select {|h| h.pending?(Quirk.today)}.
-        map(&:id).
-        sort.
-        join("\n")
     end
 
     def streaks
